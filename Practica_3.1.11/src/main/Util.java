@@ -16,39 +16,40 @@ public class Util {
 	
 	public static boolean checkDate(int[] splitedDate) {
 		
-		if (splitedDate[2] < Util.getMinimumDate().getYear()) {
-			System.out.println("You should introduce a date after 1/1/1987.");
-			return false;
-		}
-		
-		
-		// Month cheking
+		// Month checking
 		
 		if (splitedDate[1] < 1 || 12 < splitedDate[1]) {
 			System.out.println("Number of month has to be between 1 - 12.");
 			return false;
 		}
 		
-		if (splitedDate[1] < Util.getMinimumDate().getMonth()) {
-			System.out.println("You should introduce a date after 1/1/1987.");
-			return false;
-		}
-		
 		
 		// Day checking
 		
-		if (Util.isLeapYear(splitedDate[2]) && splitedDate[1] == 2 && splitedDate[0] < 0 || 29 < splitedDate[0]) {
-			System.out.println("Introduced a leap year, this month has to be between 1 - 29.");
-			return false;
+		if (Util.isLeapYear(splitedDate[2]) && splitedDate[1] == 2 && 29 == splitedDate[0]) {
+			return true;
 		}
-
-		if (Date.daysForMonth[splitedDate[1]] < splitedDate[0]) {
-			System.out.println("The day for this month has to be between 1 - " + Date.daysForMonth[splitedDate[1]] + ".");
+		
+		if (splitedDate[0] < 1 || Date.daysForMonth[splitedDate[1] - 1] < splitedDate[0]) {
+			System.out.println("You put a invalid day for this month.");
 			return false;
 		}
 		
-		if (splitedDate[0] <= Util.getMinimumDate().getDay()) {
-			System.out.println("You should introduce a date after 1/1/1987.");
+		
+		// Minimum date
+		
+		if (splitedDate[2] < Util.getMinimumDate().getYear()) {
+			System.out.println("You should introduce a date after 1/1/1978.");
+			return false;
+		}
+		
+		if (splitedDate[2] == Util.getMinimumDate().getYear() && splitedDate[1] < Util.getMinimumDate().getMonth()) {
+			System.out.println("You should introduce a date after 1/1/1978.");
+			return false;
+		}
+		
+		if (splitedDate[2] == Util.getMinimumDate().getYear() && splitedDate[1] == Util.getMinimumDate().getMonth() && splitedDate[0] <= Util.getMinimumDate().getDay()) {
+			System.out.println("You should introduce a date after 1/1/1978.");
 			return false;
 		}
 		

@@ -7,7 +7,7 @@ import model.Student;
 public class StudentsDB {
 	
 	private HashMap<Long, Student> idAndStudents;
-	private long lastID;
+	private static long lastID;
 	
 	public StudentsDB() {
 		

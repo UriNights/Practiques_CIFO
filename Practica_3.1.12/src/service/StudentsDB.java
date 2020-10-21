@@ -12,7 +12,7 @@ public class StudentsDB {
 	public StudentsDB() {
 		
 		this.idAndStudents = new HashMap<>();
-		this.lastID = 1;
+		this.lastID = 0;
 	}
 
 	public long getLastID() {

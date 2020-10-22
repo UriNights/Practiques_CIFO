@@ -1,9 +1,12 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import model.Student;
 import model.University;
+import service.StudentsDB;
 import utils.GenericUtils;
 
 public class UIMenuItems {
@@ -57,18 +60,23 @@ public class UIMenuItems {
 		return this.getAnswer(0, listUniversities.size());
 	}
 
-	public String universityInfo(University university) {
+	public String universityInfo(StudentsDB studentsDB) {
 
-		System.out.println("*** " + university + " ***\n"
+		System.out.println("\n"
+				+ "*** " + studentsDB.getUniversity() + " ***\n"
 				+ "0) Back");
 
-		for (int i = 0; i < university.get; i++) {
-			System.out.println((i + 1) + ") " + listUniversities.get(i).getName());
+		HashMap<Long, Student> idAndStudents = studentsDB.getIdAndStudents();
+
+		int i = 1;
+		for (Long ID : idAndStudents.keySet()) {
+			System.out.println(i + ") " + idAndStudents.get(ID));
+			i++;
 		}
 
-		System.out.print("Select university for more information: ");
+		System.out.print("Select student for more information: ");
 		
-		return this.getAnswer(0, listUniversities.size());
+		return this.getAnswer(0, idAndStudents.size());
 	}
 	
 	public void bye() {

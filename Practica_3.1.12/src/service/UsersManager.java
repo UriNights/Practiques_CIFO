@@ -6,7 +6,7 @@ public class UsersManager {
 
 	public static long createID(StudentsDB studentsDB) {
 
-		return studentsDB.getLastID() + 1;
+		return studentsDB.getNextID();
 	}
 
 	public static String createUser(StudentsDB studentsDB, String name, String surname) {

@@ -21,10 +21,10 @@ public class StarterInformation {
 		
 		StudentsDB UniOxford = new StudentsDB("Oxford Univesity", "United Kingdom", "Oxford");
 		
-		UniWales.setNewStudent(new Student("Luisa", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
-		UniWales.setNewStudent(new Student("Hugo", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
-		UniWales.setNewStudent(new Student("Pedro", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
-		UniWales.setNewStudent(new Student("Elionor", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
+		UniOxford.setNewStudent(new Student("Luisa", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
+		UniOxford.setNewStudent(new Student("Hugo", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
+		UniOxford.setNewStudent(new Student("Pedro", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
+		UniOxford.setNewStudent(new Student("Elionor", "Gonzàlez", LocalDate.now(), 170, 80, UniOxford));
 		universities.add(UniOxford);
 	}
 }

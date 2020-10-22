@@ -10,7 +10,7 @@ public class StudentsDB {
 	private final University university;
 	
 	private HashMap<Long, Student> idAndStudents;
-	private static long lastID;
+	private long lastID;
 	
 	public StudentsDB(String name, String country, String city) {
 		
@@ -25,7 +25,7 @@ public class StudentsDB {
 		return lastID;
 	}
 	
-	private long getNextID() {
+	public long getNextID() {
 
 		this.lastID++;
 		return this.lastID;
@@ -50,14 +50,10 @@ public class StudentsDB {
 	}
 
 	public void setNewStudent(Student student) {
-		this.idAndStudents.put(this.getNextID(), student);
+		this.idAndStudents.put(this.getLastID(), student);
 	}
 
 	public University getUniversity() {
 		return university;
-	}
-
-	public static void setLastID(long lastID) {
-		StudentsDB.lastID = lastID;
 	}
 }

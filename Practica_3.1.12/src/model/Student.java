@@ -45,6 +45,10 @@ public class Student extends Person {
 	public long getID() {
 		return ID;
 	}
+	
+	public String toString() {
+		return "ID -> " + this.ID + " // Name: " + super.getName() + " " + super.getSurname();
+	}
 }
 
 /*Calcular la seva nota d’entrada a la universitat (mínim cinc assignatures més examen d’entrada a la universitat):

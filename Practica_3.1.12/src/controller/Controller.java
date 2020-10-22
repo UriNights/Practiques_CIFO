@@ -41,6 +41,11 @@ public class Controller {
 		
 		return listUniversities;
 	}
+	
+	public static StudentsDB getStudentsDB(int number) {
+		
+		return universityList.get(number);
+	}
 
 	public static void addUniversity() {
 		// TODO Auto-generated method stub

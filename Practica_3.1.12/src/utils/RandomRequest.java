@@ -10,7 +10,7 @@ public class RandomRequest {
 		
 		// First randomize for number or letter
 		
-		if (random.nextInt(1) == 0) {
+		if (random.nextInt(2) == 0) {
 			return (char) (random.nextInt(9) + '0');
 		}
 		
@@ -21,14 +21,17 @@ public class RandomRequest {
 		
 		// Then we try for an upper case
 		
-		if (random.nextInt(1) == 0) {
+		if (random.nextInt(2) == 0) {
 			return Character.toUpperCase(letter);
 		}
 		
 		return letter;
 	}
-	
-	public static int getIntFromZeroTo(int maxNumber) {
+
+	public static int getIntFromZeroTo(int numberofkinds) {
 		
+		// To do
+		
+		return 1;
 	}
 }

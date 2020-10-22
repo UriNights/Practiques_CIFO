@@ -56,17 +56,17 @@ public class UserInterface {
 				return;
 
 			default:
-				this.universityInfoMenu(listUniverisities.get(Integer.valueOf(answer)));
+				this.universityInfoMenu(answer);
 				break;
 			}
 		}
 	}
 
-	private void universityInfoMenu(University university) {	//passar el hashmap de studentsDB
+	private void universityInfoMenu(String answerOption) {
 		
 		while (true) {
 			
-			String answer = menuItems.universityInfo(university);
+			String answer = menuItems.universityInfo(Controller.getStudentsDB(Integer.valueOf(answerOption)));
 			
 			switch (answer) {
 			case "0":

@@ -8,7 +8,7 @@ import utils.RandomRequest;
 
 public class Pet extends SuperBeing {
 	
-	private static enum KindOfPets {
+	private static enum PetTemplate {
 		
 		DOG("Dog", 1000),
 		CAT("Cat", 600),
@@ -22,12 +22,12 @@ public class Pet extends SuperBeing {
 		private final String kind;
 		private final int monthlyExpenses;
 
-		KindOfPets(String kind, int monthlyExpenses) {
+		PetTemplate(String kind, int monthlyExpenses) {
 			this.kind = kind;
 			this.monthlyExpenses = monthlyExpenses;
 		}
 		
-		public static KindOfPets getPet() {
+		public static PetTemplate getPet() {
 			return values()[RandomRequest.getIntFromZeroTo(numberOfKinds)];
 		}
 		
@@ -42,13 +42,13 @@ public class Pet extends SuperBeing {
 	
 	//--- Start Pet class
 	
-	private KindOfPets kindOfPet;
+	private PetTemplate kindOfPet;
 	private ArrayList<Vaccine> vaccinationCard;
 
 	public Pet(String name, LocalDate birthday, int heightInCm, float weight) {
 		super(name, birthday, heightInCm, weight);
 
-		this.kindOfPet = KindOfPets.getPet();
+		this.kindOfPet = PetTemplate.getPet();
 		this.vaccinationCard = new ArrayList<>();
 	}
 	

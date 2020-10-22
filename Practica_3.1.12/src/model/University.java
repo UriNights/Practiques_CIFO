@@ -12,6 +12,25 @@ public class University {
 		this.country = country;
 		this.city = city;
 	}
+	
+	//Getters and Setters
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	@Override
+	public String toString() {
+		return name + " (" + country + ", " + city + ")";
+	}
 }
 
 /*

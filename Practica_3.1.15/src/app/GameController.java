@@ -1,15 +1,15 @@
 package app;
 
 
-import Controller.ViewController;
-import Services.Dungeon;
+import controller.ViewController;
+import services.Dungeon;
 
-public class GameLuncher {
+public class GameController {
 	
 	private ViewController viewController;
 	private Dungeon dungeon;
 	
-	public GameLuncher() {
+	public GameController() {
 		this.viewController = new ViewController();
 	}
 
@@ -17,11 +17,13 @@ public class GameLuncher {
 
 		while (true) {
 			this.newGame();
+			
+			
 		}
 	}
 	
 	private void newGame() {
 		
-		dungeon = this.viewController.configureGame();
+		this.dungeon = this.viewController.configureGame();
 	}
 }

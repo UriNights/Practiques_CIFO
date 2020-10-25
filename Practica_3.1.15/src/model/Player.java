@@ -1,22 +1,33 @@
 package model;
 
-import java.awt.Point;
-
 public class Player {
 
-	private Point position;
+	private int position;
 	private int battery;
 	
 	public Player() {
-		this.position = new Point();
+		this.position = 0;
 		this.battery = 14;
 	}
+	
+	public void move(int newPosition) {
+		this.position = newPosition;	
+		this.battery--;
+	}
+	
+	public boolean hasBattery() {
+		if (0 < this.battery) return true;
+		return false;
+	}
+	
+	
+	// Getters and Setters
 
-	public Point getPosition() {
+	public int getPosition() {
 		return position;
 	}
 
-	public void setPosition(Point position) {
+	public void setPosition(int position) {
 		this.position = position;
 	}
 

@@ -1,29 +1,29 @@
 package app;
 
-
-import controller.ViewController;
-import services.Dungeon;
+import controller.Controller;
 
 public class GameController {
-	
-	private ViewController viewController;
-	private Dungeon dungeon;
-	
+
+	private final Controller controller;
+
 	public GameController() {
-		this.viewController = new ViewController();
+		this.controller = new Controller();
 	}
 
 	public void start() {
 
-		while (true) {
+		boolean newGame = true;
+		
+		while (newGame) {
 			this.newGame();
+
+			while (this.controller.nextTurn());
 			
-			
+			newGame = this.controller.nextGame();
 		}
 	}
-	
+
 	private void newGame() {
-		
-		this.dungeon = this.viewController.configureGame();
+		this.controller.configureGame();
 	}
 }

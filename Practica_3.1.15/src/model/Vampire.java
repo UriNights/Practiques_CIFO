@@ -1,12 +1,21 @@
 package model;
 
-import java.awt.Point;
-
 public class Vampire {
 
-	private Point point;
+	private int position;
 	
-	public Vampire(Point point) {
-		this.point = point;
+	public Vampire(int position) {
+		this.position = position;
+	}
+	
+	
+	// Getters and Setters
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
 	}
 }

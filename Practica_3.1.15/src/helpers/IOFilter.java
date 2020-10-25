@@ -9,7 +9,27 @@ public class IOFilter {
 			int value = Integer.parseInt(input);
 			if (minNumber <= value && value <= maxNumber) return value;
 		}
-		System.out.println("Please, enter a valid input: ");
+		
+		System.out.print("   Please, enter a valid input: ");
 		return -1;
+	}
+
+	public static boolean isMovementInput(String input) {
+		
+		if (input.matches("[wasd]+")) {
+			return true;
+		}
+		
+		System.out.print("   Please, enter a valid input: ");
+		return false;
+	}
+
+	public static boolean isYesOrNot(String input) {
+		if (input.matches("[yn]")) {
+			return true;
+		}
+		
+		System.out.print("   Please, enter a valid input: ");
+		return false;
 	}
 }

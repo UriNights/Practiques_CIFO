@@ -37,7 +37,7 @@ public class Controller {
 			userInterface.movementOutOfBoard();
 		}
 		
-		// dungeon.moveVampires(); *************************
+		dungeon.moveVampires();
 		
 		int gameState = dungeon.gameState();
 		

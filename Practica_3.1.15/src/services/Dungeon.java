@@ -6,6 +6,7 @@ import java.util.Arrays;
 import helpers.RandomOutput;
 import model.Player;
 import model.Vampire;
+import utilities.Mover;
 
 public class Dungeon {
 
@@ -18,7 +19,7 @@ public class Dungeon {
 		this.width = width;
 		this.height = height;
 
-		this.player = new Player(); // Battery for player torch is always the same = 14 turns
+		this.player = new Player((int) (dificulty * (width * height * 0.1))); // Battery for player torch is created in relation with board and difficulty
 
 		this.vampires = this.createVampires(dificulty);
 	}
@@ -45,39 +46,9 @@ public class Dungeon {
 
 	public boolean movePlayerAndKill(String commands) {
 
-		int newPosition = this.player.getPosition();
-		boolean outOfBoard = false;
-		for (char keyInput : commands.toCharArray()) {
-
-			switch (keyInput) {
-			
-				case 'w':
-					newPosition -= this.width;
-					if (newPosition < 0) outOfBoard = true;
-					break;
-					
-				case 's':
-					newPosition += this.width;
-					if ((this.width * this.height) - 1 < newPosition) outOfBoard = true;
-					break;
-					
-				case 'a':
-					if (newPosition == 0 || this.width - 1 < newPosition && newPosition % this.width == 0) outOfBoard = true;
-					newPosition--;
-					break;
-					
-				case 'd':
-					if (newPosition == this.width - 1 || this.width - 1 < newPosition && newPosition % this.width == this.width - 1) outOfBoard = true;
-					newPosition++;
-					break;
-					
-				default:
-					break;
-			}
-
-			if (outOfBoard) return false;
-		}
-
+		int newPosition = Mover.newPositionWithChar(this.player.getPosition(), commands, this.width, this.height);
+		if (newPosition == -1) return false;
+		
 		this.player.move(newPosition);
 		this.killVampire(newPosition);
 		
@@ -99,10 +70,23 @@ public class Dungeon {
 	}
 	
 	public void moveVampires() {
-		// TODO Auto-generated method stub
-		
+
+		for (Vampire vampire : this.vampires) {
+			
+			int newPosition = Mover.newRandomPosition(vampire.getPosition(), this.width, this.height);
+			if (newPosition == -1 || this.alreadyHaveVampire(newPosition)) continue;
+			
+			vampire.setPosition(newPosition);
+		}
 	}
 	
+	private boolean alreadyHaveVampire(int newPosition) {
+		for (Vampire vampire : this.vampires) {
+			if (vampire.getPosition() == newPosition) return true;
+		}
+		return false;
+	}
+
 	public int gameState() {		// 1 = you win ; 0 = game continues ; -1 = you lose
 
 		if (vampires.isEmpty()) return 1;

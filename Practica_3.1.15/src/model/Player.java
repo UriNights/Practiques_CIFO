@@ -5,9 +5,9 @@ public class Player {
 	private int position;
 	private int battery;
 	
-	public Player() {
+	public Player(int batteryConst) {
 		this.position = 0;
-		this.battery = 14;
+		this.battery = 4 * batteryConst;
 	}
 	
 	public void move(int newPosition) {

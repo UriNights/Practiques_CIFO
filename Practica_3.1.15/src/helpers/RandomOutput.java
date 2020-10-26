@@ -31,6 +31,10 @@ public class RandomOutput {
 		Arrays.sort(positionsArray);
 		return positionsArray;
 	}
+	
+	public static int randomIntFromZeroTo(int maxNumber) {
+		return random.nextInt(maxNumber + 1);
+	}
 }
 
 

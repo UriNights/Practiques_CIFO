@@ -1,15 +1,22 @@
-package app;
+package repository;
 
-import javax.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
+
+import model.Book;
+import model.Quote;
 
 import java.util.List;
 import java.util.Optional;
 
-public class BookRepository {
+import javax.persistence.EntityManager;
+
+import org.springframework.data.repository.CrudRepository;
+
+public class QuoteRepository {
 	
 	private EntityManager entityManager;
 
-	public BookRepository(EntityManager entityManager) {
+	public QuoteRepository(EntityManager entityManager) {
 		
 		this.entityManager = entityManager;
 	}

@@ -12,7 +12,6 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<!-- Entity classes -->
-		<class></class>
 
 		<!-- properties of my persistence unit -->
 		<properties>

@@ -11,11 +11,12 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import view.Printable;
 
 @Entity
 @Table(name = "QUOTES")
 
-@Getter @Setter public class Quote {
+@Getter @Setter public class Quote implements Printable {
 
 	@Id
 	@Column(name="ID")
@@ -46,5 +47,11 @@ import lombok.Setter;
 	public String toString() {
 		
 		return "Quote [id=" + this.id + ", sentence=" + this.sentence + ", numberWords=" + this.numberWords + ", book=" + this.book + "]";
+	}
+
+	@Override
+	public String toPrint() {
+
+		return this.sentence;
 	}
 }

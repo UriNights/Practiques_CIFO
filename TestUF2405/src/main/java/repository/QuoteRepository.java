@@ -10,8 +10,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-import org.springframework.data.repository.CrudRepository;
-
 public class QuoteRepository {
 	
 	private EntityManager entityManager;
@@ -21,22 +19,11 @@ public class QuoteRepository {
 		this.entityManager = entityManager;
 	}
 
-	public Optional<Book> findById(Integer id) {
-		Book book = entityManager.find(Book.class, id);
-		return book != null ? Optional.of(book) : Optional.empty();
+	public List<Quote> findAll(Book book) {
+		return entityManager.createQuery("from Quote").getResultList();
 	}
 
-	public List<Book> findAll() {
-		return entityManager.createQuery("from Book").getResultList();
-	}
-
-	public Optional<Book> findByTitle(String title) {
-		Book book = entityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title", Book.class)
-				.setParameter("title", title).getSingleResult();
-		return book != null ? Optional.of(book) : Optional.empty();
-	}
-
-	public Optional<Book> save(Book book) {
+	public Optional<Quote> save(Book book, String quote) {
 		
 		try {
 			entityManager.getTransaction().begin();
@@ -47,5 +34,10 @@ public class QuoteRepository {
 			e.printStackTrace();
 		}
 		return Optional.empty();
+	}
+
+	public void remove(Book book, Quote quote) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -16,13 +16,14 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import view.Printable;
 
 @Entity
 @Table(name = "BOOK")
 @NamedQueries({ @NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
 @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b") })
 
-@Getter @Setter public class Book {
+@Getter @Setter public class Book implements Printable {
 	
 	@Id
 	@Column(name="ID")
@@ -50,5 +51,11 @@ import lombok.Setter;
 	public String toString() {
 
 		return "Book{" + "id=" + this.id + ", name='" + this.title + '\'' + ", author=" + this.author + '}';
+	}
+
+	@Override
+	public String toPrint() {
+
+		return this.title;
 	}
 }

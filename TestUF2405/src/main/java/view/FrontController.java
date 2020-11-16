@@ -1,8 +1,10 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import model.Book;
+import model.Quote;
 import utilities.IOFilter;
 
 public class FrontController {
@@ -28,9 +30,10 @@ public class FrontController {
 				+ "5) List books with their quotes\n"
 				+ ">> ");
 		
+		int input;
 		while (true) {
 			
-			int input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
+			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
 			
 			if (1 <= input && input <= 5) {
 				return input;
@@ -41,9 +44,29 @@ public class FrontController {
 		}
 	}
 	
-	
-	// Options to do
+	private String askForString(String question) {
 
+		String string = "";
+		
+		while(string.isBlank()) {
+			
+			System.out.print(question);
+			string = reader.nextLine();
+		}
+		
+		return string;
+	}
+	
+	public void printList(List<? extends Printable> allObjects) {
+
+		for (int i = 0; i < allObjects.size(); i++) {
+			
+			System.out.println((i + 1) + ") " + allObjects.get(i).toPrint());
+		}		
+	}
+	
+	// Options to do...
+	// Book
 	public Book newBook() {
 		
 			System.out.println("\nLet's add a new book.");
@@ -53,27 +76,58 @@ public class FrontController {
 	
 	private String askForTitle() {
 		
-		String title = "";
-		
-		while(title.isBlank()) {
-			
-			System.out.print("Enter a title: ");
-			title = reader.nextLine();
-		}
-		
-		return title;
+		return this.askForString("Enter a title: ");
 	}
 	
 	private String askForAuthor() {
 		
-		String author = "";
+		return this.askForString("Enter the author: ");
+	}
+
+	public Book selectBook(List<Book> allBooks) {
 		
-		while(author.isBlank()) {
+		System.out.print("\nSelect a book from the list: ");
+		
+		this.printList(allBooks);
+		
+		int input;
+		while (true) {
 			
-			System.out.print("Enter the author: ");
-			author = reader.nextLine();
+			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
+			
+			if (1 <= input && input <= allBooks.size()) {
+				return allBooks.get(input - 1);
+			}
+			
+			System.out.print("Please, enter a valid option.\n"
+					+ ">> ");
 		}
+	}
+
+	
+	// Quote
+	public String askForQuote() {
+
+		return this.askForString("Enter a new quote: ");
+	}
+
+	public Quote selectQuote(List<Quote> allQuotes) {
+
+		System.out.print("\nSelect a quote from the list: ");
 		
-		return author;
+		this.printList(allQuotes);
+		
+		int input;
+		while (true) {
+			
+			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
+			
+			if (1 <= input && input <= allQuotes.size()) {
+				return allQuotes.get(input - 1);
+			}
+			
+			System.out.print("Please, enter a valid option.\n"
+					+ ">> ");
+		}
 	}
 }

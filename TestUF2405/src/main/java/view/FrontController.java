@@ -17,30 +17,35 @@ public class FrontController {
 
 	public void wellcome() {
 
-		System.out.println("\n\t*** Wellcome to our Books library! ***\n\n");
+		System.out.println("\n\t*** Wellcome to our Books library! ***");
 	}
 
 	public int mainMenu() {
 
-		System.out.print("Take an option to continue:\n"
+		System.out.print("\nTake an option to continue:\n"
 				+ "1) Add book\n"
 				+ "2) Add quote\n"
 				+ "3) Delete book\n"
 				+ "4) Delete quote\n"
 				+ "5) List books with their quotes\n"
-				+ ">> ");
+				+ "6) Exit\n");
+		
+		return this.getOptionBetween(1, 6);
+	}
+	
+	private int getOptionBetween(int minOption, int maxOption) {
 		
 		int input;
 		while (true) {
 			
+			System.out.print(">> ");
 			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
 			
-			if (1 <= input && input <= 5) {
+			if (minOption <= input && input <= maxOption) {
 				return input;
 			}
 			
-			System.out.print("Please, enter a valid option.\n"
-					+ ">> ");
+			System.out.print("Please, enter a valid option.\n");
 		}
 	}
 	
@@ -59,10 +64,15 @@ public class FrontController {
 	
 	public void printList(List<? extends Printable> allObjects) {
 
+		if (allObjects == null || allObjects.isEmpty()) {
+			System.out.println("\nSelection is empty.");
+			return;
+		}
+		
 		for (int i = 0; i < allObjects.size(); i++) {
 			
 			System.out.println((i + 1) + ") " + allObjects.get(i).toPrint());
-		}		
+		}
 	}
 	
 	// Options to do...
@@ -86,48 +96,34 @@ public class FrontController {
 
 	public Book selectBook(List<Book> allBooks) {
 		
-		System.out.print("\nSelect a book from the list: ");
+		if (allBooks.isEmpty()) {
+			System.out.println("\nSelection is empty.");
+			return null;
+		}
 		
+		System.out.println("\nSelect a book from the list: ");
 		this.printList(allBooks);
 		
-		int input;
-		while (true) {
-			
-			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
-			
-			if (1 <= input && input <= allBooks.size()) {
-				return allBooks.get(input - 1);
-			}
-			
-			System.out.print("Please, enter a valid option.\n"
-					+ ">> ");
-		}
+		return allBooks.get(this.getOptionBetween(1, allBooks.size()) - 1);
 	}
 
 	
 	// Quote
 	public String askForQuote() {
 
-		return this.askForString("Enter a new quote: ");
+		return this.askForString("\nEnter a new quote: ");
 	}
 
 	public Quote selectQuote(List<Quote> allQuotes) {
 
-		System.out.print("\nSelect a quote from the list: ");
+		if (allQuotes.isEmpty()) {
+			System.out.println("\nSelection is empty.");
+			return null;
+		}
 		
+		System.out.println("\nSelect a quote from the list: ");
 		this.printList(allQuotes);
 		
-		int input;
-		while (true) {
-			
-			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
-			
-			if (1 <= input && input <= allQuotes.size()) {
-				return allQuotes.get(input - 1);
-			}
-			
-			System.out.print("Please, enter a valid option.\n"
-					+ ">> ");
-		}
+		return allQuotes.get(this.getOptionBetween(1, allQuotes.size()) - 1);
 	}
 }

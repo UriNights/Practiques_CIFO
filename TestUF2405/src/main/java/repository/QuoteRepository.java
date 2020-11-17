@@ -11,33 +11,58 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 
 public class QuoteRepository {
-	
+
 	private EntityManager entityManager;
 
 	public QuoteRepository(EntityManager entityManager) {
-		
+
 		this.entityManager = entityManager;
 	}
 
 	public List<Quote> findAll(Book book) {
-		return entityManager.createQuery("from Quote").getResultList();
+		
+		if(book != null) {
+			return entityManager.createQuery("from Quote where fk_book = " + book.getId()).getResultList();
+		}
+		
+		return null;
 	}
 
-	public Optional<Quote> save(Book book, String quote) {
-		
+	public Optional<Quote> save(Quote quote) {
+
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(book);
+			entityManager.persist(quote);
 			entityManager.getTransaction().commit();
-			return Optional.of(book);
+
+			return Optional.of(quote);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return Optional.empty();
 	}
 
-	public void remove(Book book, Quote quote) {
-		// TODO Auto-generated method stub
+	public Optional<Quote> remove(Quote quote) {
+
+		if (quote != null) {
+
+			try {
+
+				entityManager.getTransaction().begin();
+				entityManager.remove(quote);
+				entityManager.getTransaction().commit();
+
+				return Optional.of(quote);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return Optional.empty();
+		}
 		
+		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import utilities.IOFilter;
 import view.Printable;
 
 @Entity
@@ -33,13 +35,13 @@ import view.Printable;
     @JoinColumn(name = "FK_BOOK", nullable = false, updatable = false)
 	private Book book;
 
-	public Quote() {
+	protected Quote() {
 	}
 
-	public Quote(int id, String sentence, int numberWords, Book book) {
-		this.id = id;
+	public Quote(String sentence, Book book) {
+		
 		this.sentence = sentence;
-		this.numberWords = numberWords;
+		this.numberWords = IOFilter.numberOfWords(sentence);
 		this.book = book;
 	}
 

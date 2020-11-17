@@ -36,15 +36,19 @@ import view.Printable;
 	@Column(name = "AUTHOR", length = 14, nullable = false)
 	private String author;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "book", fetch = FetchType.EAGER)
 	private List<Quote> quotes;
 
-	Book() {
+	protected Book() {
 	}
 
 	public Book(String title, String author) {
 		this.title = title;
 		this.author = author;
+	}
+	
+	public long getId() {
+		return this.id;
 	}
 
 	@Override

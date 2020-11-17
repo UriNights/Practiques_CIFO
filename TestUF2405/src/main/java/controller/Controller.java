@@ -13,32 +13,6 @@ import repository.QuoteRepository;
 import view.FrontController;
 
 public class Controller {
-
-	
-	// ***************  Gestionar optional quan es guarda i s'esborra de la BBDD
-	
-	// el find all de les quotes respecte els books està per fer
-	
-	// pq es deixa un constructor base sense paràmetres?
-	
-	/* quan funcioni tot
-	 
-	 		int input;
-		while (true) {
-			
-			input = IOFilter.checkInputForInt(reader.nextLine());	// Return -1 if input is not an integer
-			
-			if (1 <= input && input <= allQuotes.size()) {
-				return allQuotes.get(input - 1);
-			}
-			
-			System.out.print("Please, enter a valid option.\n"
-					+ ">> ");
-		}
-		
-		Això es pot convertir en un sol metod de la clase front controller IOFilter.isValidOption(int minim option, int max option) retorna un int
-	 */
-	
 	
 	private Scanner reader;
 	private FrontController frontController;
@@ -64,7 +38,8 @@ public class Controller {
 	public void start() {
 
 		this.frontController.wellcome();
-
+		
+		Book book;
 		while (true) {
 			
 			switch (this.frontController.mainMenu()) {
@@ -76,9 +51,8 @@ public class Controller {
 	
 				// Add quote
 				case 2:
-					this.addQuote(
-							this.frontController.selectBook(
-									this.bookRepository.findAll()), this.frontController.askForQuote());
+					this.addQuote(new Quote(this.frontController.askForQuote(),
+							this.frontController.selectBook(this.bookRepository.findAll())));
 					break;
 	
 				// Delete book
@@ -90,17 +64,27 @@ public class Controller {
 	
 				// Delete quote
 				case 4:
-					Book book = this.frontController.selectBook(
-									this.bookRepository.findAll());
+					book = this.frontController.selectBook(
+							this.bookRepository.findAll());
 					
-					this.removeQuote(book, this.frontController.selectQuote(this.quoteRepository.findAll(book)));
+					
+					this.removeQuote(this.frontController.selectQuote(this.quoteRepository.findAll(book)));
 					break;
 	
 				// List all books with quotes
 				case 5:
-					this.frontController.printList(this.bookRepository.findAll());
+					book = this.frontController.selectBook(
+							this.bookRepository.findAll());
+					
+					if (book != null) {
+						this.frontController.printList(this.quoteRepository.findAll(book));
+					}
 					break;
-	
+
+				// Exit
+				case 6:
+					this.entityManager.close();
+					System.exit(0);
 				default:
 					break;
 			}
@@ -119,13 +103,13 @@ public class Controller {
 		this.bookRepository.remove(book);
 	}
 	
-	private void addQuote(Book book, String quote) {
+	private void addQuote(Quote quote) {
 
-		this.quoteRepository.save(book, quote);
+		this.quoteRepository.save(quote);
 	}
 	
-	private void removeQuote(Book book, Quote quote) {
+	private void removeQuote(Quote quote) {
 
-		this.quoteRepository.remove(book, quote);
+		this.quoteRepository.remove(quote);
 	}
 }

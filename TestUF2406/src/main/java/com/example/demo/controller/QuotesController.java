@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.model.Quote;
+import com.example.demo.service.BookService;
 import com.example.demo.service.QuotesService;
 
 @Controller
@@ -15,10 +16,13 @@ public class QuotesController {
 
 	@Autowired
 	QuotesService service;
+	@Autowired
+	BookService bookService;
 	
 	@RequestMapping("/all")
 	public String showBooks (Model model) {
 		model.addAttribute("allSentences", service.findAll());
+		model.addAttribute("allBooks", bookService.findAll());
 		return "quotes.html";
 	}
 	
@@ -28,6 +32,7 @@ public class QuotesController {
 		service.addQuote(quote);
 		
 		model.addAttribute("allSentences", service.findAll());
+		model.addAttribute("allBooks", bookService.findAll());
 		return "quotes.html";
 	}
 }

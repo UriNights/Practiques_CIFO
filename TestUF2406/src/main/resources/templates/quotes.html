@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<title>MyLibrary</title>
+
+<body>
+	<div class="w3-container">
+		<table class="w3-table-all w3-hoverable">
+
+			<thead>
+				<tr class="w3-light-grey">
+					<th>ID</th>
+					<th>Tag</th>
+					<th>Sentence</th>
+					<th>Total Words</th>
+				</tr>
+			</thead>
+
+			<tr th:each="sentence:${allSentences}">
+				<td th:text="${sentence.id}"></td>
+				<td th:text="${sentence.tag}"></td>
+				<td th:text="${sentence.sentence}"></td>
+				<td th:text="${sentence.numberWords}"></td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div>
+		<form th:action="@{/quotes/new_sentence}" th:object="${sentence}"
+			method="post">
+
+			<p>
+				<label>Tag</label> <input name="tag" type="text">
+			</p>
+			<p>
+				<label>Sentence</label> <input name="sentence" type="text">
+			</p>
+
+			<p>
+				<button type="submit">Add Sentence</button>
+			</p>
+
+		</form>
+
+		<table>
+			<tr>
+
+				<td><a th:href="@{/books/library}">Library</a></td>
+			</tr>
+		</table>
+	</div>
+</html>
